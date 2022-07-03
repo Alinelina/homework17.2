@@ -1,7 +1,7 @@
 const newMessage = document.querySelector('.txt-area');
 const sendButton = document.querySelector('.btn');
+const messageContainer = document.querySelector('.message-container');
 let messages = ['Hi', 'How are you?'];
-let verifiedMessage;
 
 function generateMessage() {
     let optionsString = '';
@@ -10,26 +10,23 @@ function generateMessage() {
         optionsString += `<div class="message">${message}</div>`
     }
 
-    document.querySelector('.message-container').innerHTML = optionsString;
+    messageContainer.innerHTML = optionsString;
 }
 
 function checkSpam() {
-    verifiedMessage = newMessage.value.replace(/viagra|xxx/gi, '***');
+    const verifiedMessage = newMessage.value.replace(/viagra|xxx/gi, '***');
+    return verifiedMessage;
 }
 
 function addMessage() {
-    checkSpam();
-
-    messages.push(verifiedMessage);
+    messages.push(checkSpam());
 
     generateMessage();
     
     newMessage.value = '';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    generateMessage();
-})
+document.addEventListener('DOMContentLoaded',generateMessage);
 
 sendButton.addEventListener('click', addMessage);
 
